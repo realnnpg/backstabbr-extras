@@ -38,10 +38,7 @@ Open to feedback on: backstabbr-extras@nnpg.dev
 
 ## License
 
-GPL-3.0. Copyright (C) 2026 nnpg. See [LICENSE](LICENSE).
-
-You can use, modify and share this, but anything you distribute based on it has
-to stay open source under GPL-3.0 too, with credit kept.
+MIT LICENSE
 
 ## legal type shi idk
 
