@@ -1,0 +1,82 @@
+{
+  "manifest_version": 3,
+  "name": "Backstabbr Extras",
+  "version": "1.0",
+  "description": "Adds useful things to Backstabbr",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Backstabbr Extras",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.backstabbr.com/*",
+        "*://backstabbr.com/*"
+      ],
+      "js": ["theme.js"],
+      "css": ["theme.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/*",
+        "*://backstabbr.com/*"
+      ],
+      "js": ["troll.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/member/*",
+        "*://backstabbr.com/member/*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/game/*",
+        "*://backstabbr.com/game/*",
+        "*://www.backstabbr.com/sandbox/*",
+        "*://backstabbr.com/sandbox/*"
+      ],
+      "js": ["board-bridge.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/game/*",
+        "*://backstabbr.com/game/*",
+        "*://www.backstabbr.com/sandbox/*",
+        "*://backstabbr.com/sandbox/*"
+      ],
+      "js": ["board-map.js", "board.js"],
+      "css": ["board.css"],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/game/*",
+        "*://backstabbr.com/game/*"
+      ],
+      "js": ["press.js", "autosave.js", "stats.js"],
+      "css": ["press.css", "stats.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

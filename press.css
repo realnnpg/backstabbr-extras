@@ -1,0 +1,55 @@
+.bse-press-item {
+  align-items: center;
+  font-weight: 600;
+  background: rgba(13, 59, 102, 0.06);
+}
+.bse-press-item .bse-chevron {
+  transition: transform 0.15s;
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+.bse-press-item.bse-open .bse-chevron {
+  transform: rotate(180deg);
+}
+
+.bse-notes-editor {
+  display: none;
+  padding: 8px 4px 10px;
+}
+.bse-notes-editor.bse-open {
+  display: block;
+}
+.bse-notes-ta {
+  resize: vertical;
+  font-size: 0.9rem;
+}
+
+.bse-pin {
+  border: 0;
+  background: transparent;
+  padding: 0 8px 0 0;
+  margin-right: 2px;
+  color: #b8bcc2;
+  cursor: pointer;
+  align-self: center;
+  transition: color 0.12s, transform 0.12s;
+}
+.bse-pin:hover {
+  color: #6c757d;
+}
+.bse-pin.bse-pinned {
+  color: #e0a800;
+  transform: rotate(-35deg);
+}
+
+.bse-thread-notes {
+  margin-bottom: 0.75rem;
+  border-color: rgba(13, 59, 102, 0.25);
+}
+.bse-thread-notes .bse-tn-head {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--bse-muted, #adb5bd);
+  background: rgba(127, 127, 127, 0.12);
+}

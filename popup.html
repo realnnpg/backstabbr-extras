@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="bse-pop-header">
+    <span class="bse-pop-title">Backstabbr Extras</span>
+    <span class="bse-pop-ver" id="ver"></span>
+  </header>
+
+  <div class="bse-pop-theme">
+    <label for="theme" class="bse-pop-name">Theme</label>
+    <select id="theme" class="bse-theme-select">
+      <option value="default">Backstabbr (default)</option>
+      <option value="midnight">Midnight (blue)</option>
+      <option value="crimson">Crimson (red)</option>
+      <option value="forest">Forest (green)</option>
+      <option value="royal">Royal (purple)</option>
+      <option value="slate">Slate (teal)</option>
+      <option value="ember">Ember (orange)</option>
+      <option value="troll">Best theme ever!</option>
+    </select>
+  </div>
+
+  <ul class="bse-pop-list">
+    <li class="bse-pop-item">
+      <label class="bse-switch">
+        <input type="checkbox" id="profileStats">
+        <span class="bse-slider"></span>
+      </label>
+      <div class="bse-pop-text">
+        <div class="bse-pop-name">Profile stats</div>
+        <div class="bse-pop-desc">Per-country W/D/L, rates &amp; highlights on member pages.</div>
+      </div>
+    </li>
+
+    <li class="bse-pop-item">
+      <label class="bse-switch">
+        <input type="checkbox" id="boardWarnings">
+        <span class="bse-slider"></span>
+      </label>
+      <div class="bse-pop-text">
+        <div class="bse-pop-name">Illegal-move warnings</div>
+        <div class="bse-pop-desc">Flags illegal orders on the game / sandbox board.</div>
+      </div>
+    </li>
+
+    <li class="bse-pop-item">
+      <label class="bse-switch">
+        <input type="checkbox" id="pressNotes">
+        <span class="bse-slider"></span>
+      </label>
+      <div class="bse-pop-text">
+        <div class="bse-pop-name">Press notes &amp; pins</div>
+        <div class="bse-pop-desc">Personal notes, pinned chats &amp; per-chat notes in press.</div>
+      </div>
+    </li>
+
+    <li class="bse-pop-item">
+      <label class="bse-switch">
+        <input type="checkbox" id="autoSave">
+        <span class="bse-slider"></span>
+      </label>
+      <div class="bse-pop-text">
+        <div class="bse-pop-name">Auto-save orders</div>
+        <div class="bse-pop-desc">Auto-clicks “Update Orders” after you change a move. Saves the draft only — never marks you ready.</div>
+      </div>
+    </li>
+
+    <li class="bse-pop-item">
+      <label class="bse-switch">
+        <input type="checkbox" id="gameStats">
+        <span class="bse-slider"></span>
+      </label>
+      <div class="bse-pop-text">
+        <div class="bse-pop-name">Game stats &amp; export</div>
+        <div class="bse-pop-desc">Adds a Stats tab: SC graph, score table, export (JSON/report) &amp; import to sandbox.</div>
+      </div>
+    </li>
+
+    <li class="bse-pop-item">
+      <label class="bse-switch">
+        <input type="checkbox" id="tabIcons">
+        <span class="bse-slider"></span>
+      </label>
+      <div class="bse-pop-text">
+        <div class="bse-pop-name">Tab icons</div>
+        <div class="bse-pop-desc">Shows an icon on each game tab: Orders, Press, Info, Sandboxes, Stats.</div>
+      </div>
+    </li>
+  </ul>
+
+  <script src="popup.js"></script>
+</body>
+</html>

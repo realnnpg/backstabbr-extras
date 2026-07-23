@@ -1,0 +1,74 @@
+.bse-st-pane { padding: 12px 4px 4px; }
+
+.bse-st-loading { padding: 20px 4px; color: #adb5bd; }
+
+.bse-st-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.bse-st-sub {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9aa4b2;
+  font-weight: 600;
+  margin: 14px 0 6px;
+}
+
+.bse-st-sq {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  vertical-align: -1px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.bse-st-standings { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.bse-st-standing { font-size: 0.9rem; white-space: nowrap; }
+.bse-st-standing b { font-variant-numeric: tabular-nums; }
+
+.bse-st-chart {
+  width: 100%;
+  height: auto;
+  max-width: 660px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+}
+
+.bse-st-chartwrap { position: relative; max-width: 660px; }
+.bse-st-guide { stroke: rgba(255, 255, 255, 0.45); stroke-width: 1; stroke-dasharray: 3 3; }
+.bse-st-tip {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+  min-width: 118px;
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: rgba(20, 20, 24, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+.bse-st-tip.bse-open { display: block; }
+.bse-st-tip-yr { font-weight: 700; margin-bottom: 2px; border-bottom: 1px solid rgba(255,255,255,.18); padding-bottom: 2px; }
+.bse-st-tip-row b { float: right; margin-left: 10px; font-variant-numeric: tabular-nums; }
+
+.bse-st-grid { stroke: rgba(255, 255, 255, 0.10); stroke-width: 1; }
+.bse-st-axis { fill: #9aa4b2; font-size: 10px; }
+.bse-st-axis-y { text-anchor: end; }
+.bse-st-axis-x { text-anchor: middle; }
+
+.bse-st-tablewrap { overflow-x: auto; max-width: 660px; }
+.bse-st-table { margin-bottom: 0; }
+.bse-st-table th, .bse-st-table td { padding: 3px 8px; text-align: center; white-space: nowrap; }
+.bse-st-table .bse-st-yr { text-align: left; font-weight: 700; }
+.bse-st-table .bse-st-num { text-align: right; font-variant-numeric: tabular-nums; }
+.bse-st-table .bse-st-neut { color: #9aa4b2; }

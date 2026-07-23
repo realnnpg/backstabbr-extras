@@ -1,0 +1,8 @@
+.claude/
+*.zip
+*.crx
+*.pem
+node_modules/
+.DS_Store
+.vscode/
+.idea/
