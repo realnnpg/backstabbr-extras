@@ -94,11 +94,18 @@
 [data-bse-theme] .card,
 [data-bse-theme] .bg-light,
 [data-bse-theme] .modal-content,
-[data-bse-theme] .list-group-item,
 [data-bse-theme] .dropdown-menu {
   background-color: var(--bse-surface) !important;
   color: var(--bse-text) !important;
   border-color: var(--bse-border) !important;
+}
+
+[data-bse-theme] .list-group-item {
+  background-color: var(--bse-surface) !important;
+  border-color: var(--bse-border) !important;
+}
+[data-bse-theme] .list-group-item:not(.press-thread-header) {
+  color: var(--bse-text) !important;
 }
 
 [data-bse-theme] .table-primary,
@@ -170,8 +177,8 @@
 }
 [data-bse-theme] .form-control::placeholder { color: var(--bse-muted) !important; }
 
-[data-bse-theme] a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item) { color: var(--bse-link); }
-[data-bse-theme] a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):hover { color: var(--bse-link-h); }
+[data-bse-theme] a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.press-thread-header) { color: var(--bse-link); }
+[data-bse-theme] a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.press-thread-header):hover { color: var(--bse-link-h); }
 
 [data-bse-theme] .page-link {
   background-color: var(--bse-surface) !important;

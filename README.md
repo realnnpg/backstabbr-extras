@@ -13,6 +13,10 @@ most-played, strongest and weakest power.
 something illegal: a move to a province the unit can't reach, a bad coast, a support
 into a province you're not next to, or a convoy that no fleet is actually carrying.
 
+**Filter history by country** — when looking at a past turn of a game, click a country
+in the map legend to show only that country's orders. Click several to compare a few
+at a time; with nothing selected every country is shown as usual.
+
 **Press notes & pins** — in a game's Press tab: a private notepad for the whole game,
 pin important chats to the top, and private notes on each individual chat.
 

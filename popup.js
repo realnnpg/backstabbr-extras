@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var DEFAULTS = { profileStats: true, boardWarnings: true, pressNotes: true, autoSave: false, gameStats: true, tabIcons: false };
+  var DEFAULTS = { profileStats: true, boardWarnings: true, historyFilter: true, pressNotes: true, autoSave: false, gameStats: true, tabIcons: false };
   var ids = Object.keys(DEFAULTS);
 
   try {
