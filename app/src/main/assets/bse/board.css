@@ -1,0 +1,7 @@
+.bse-bad-overlay {
+  fill: none;
+  stroke: #ff0000;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
