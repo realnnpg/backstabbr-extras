@@ -41,55 +41,6 @@
     return m ? m.querySelector("svg") : null;
   }
 
-  function tagAround(data, draw) {
-    var svg = mapSvg();
-    if (!svg) return draw();
-
-    var before = [], kids = svg.childNodes, i;
-    for (i = 0; i < kids.length; i++) before.push(kids[i]);
-
-    var out = draw();
-
-    var country = (data.fullOrder && data.fullOrder.player) || "";
-    kids = svg.childNodes;
-    for (i = 0; i < kids.length; i++) {
-      var n = kids[i];
-      if (n.nodeType !== 1 || before.indexOf(n) >= 0) continue;
-      if ((n.tagName || "").toLowerCase() === "defs") continue;
-      n.setAttribute("data-bse-oc", country);
-      n.setAttribute("data-bse-ot", data.terName || "");
-    }
-    return out;
-  }
-
-  function patchJquery(jq) {
-    if (!jq || !jq.fn || jq.__bseHistoryPatched) return;
-    var orig = jq.fn.trigger;
-    if (typeof orig !== "function") return;
-    jq.__bseHistoryPatched = true;
-    jq.fn.trigger = function (type, data) {
-      var name = (type && type.type) || type;
-      var self = this, args = arguments;
-      if (name !== "DRAW_ORDER" || !data || typeof data !== "object") {
-        return orig.apply(self, args);
-      }
-      return tagAround(data, function () { return orig.apply(self, args); });
-    };
-  }
-
-  (function hookJquery() {
-    if (window.jQuery) { patchJquery(window.jQuery); return; }
-    var held;
-    try {
-      Object.defineProperty(window, "jQuery", {
-        configurable: true,
-        enumerable: true,
-        get: function () { return held; },
-        set: function (v) { held = v; patchJquery(v); }
-      });
-    } catch (e) {}
-  })();
-
   function enabled() {
     return document.documentElement.getAttribute("data-bse-history") !== "0";
   }

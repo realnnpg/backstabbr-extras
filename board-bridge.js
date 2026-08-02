@@ -3,7 +3,8 @@
 
   var FLAGS = {
     boardWarnings: "data-bse-board",
-    historyFilter: "data-bse-history"
+    historyFilter: "data-bse-history",
+    orderDrafts: "data-bse-drafts"
   };
 
   function apply(key, on) {
@@ -11,7 +12,7 @@
   }
 
   try {
-    chrome.storage.sync.get({ boardWarnings: true, historyFilter: true }, function (cfg) {
+    chrome.storage.sync.get({ boardWarnings: true, historyFilter: true, orderDrafts: true }, function (cfg) {
       Object.keys(FLAGS).forEach(function (k) { apply(k, cfg[k] !== false); });
     });
     chrome.storage.onChanged.addListener(function (changes, area) {

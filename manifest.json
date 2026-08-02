@@ -62,8 +62,17 @@
         "*://www.backstabbr.com/game/*",
         "*://backstabbr.com/game/*"
       ],
-      "js": ["history.js"],
+      "js": ["board-bus.js", "history.js"],
       "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/game/*",
+        "*://backstabbr.com/game/*"
+      ],
+      "js": ["drafts.js"],
+      "run_at": "document_idle",
       "world": "MAIN"
     },
     {

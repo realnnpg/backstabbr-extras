@@ -13,6 +13,14 @@ most-played, strongest and weakest power.
 something illegal: a move to a province the unit can't reach, a bad coast, a support
 into a province you're not next to, or a convoy that no fleet is actually carrying.
 
+**Order drafts** — adds "Save Draft" and "Load Draft" next to Update Orders. Save
+remembers the orders currently on the board, so you can try a completely different
+set out and put the original one back whenever you want. A unit with no order counts
+as a hold, so loading a draft also clears anything you added afterwards. Useful in
+games that adjudicate as soon as everyone has submitted, where you can't safely leave
+experimental orders sitting on the board. Drafts are kept in your browser only, one
+per turn, and nothing is sent to Backstabbr until you press Update Orders yourself.
+
 **Filter history by country** — when looking at a past turn of a game, click a country
 in the map legend to show only that country's orders. Click several to compare a few
 at a time; with nothing selected every country is shown as usual.
