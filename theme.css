@@ -108,6 +108,22 @@
   color: var(--bse-text) !important;
 }
 
+/* Unread press thread. Backstabbr tags it .list-group-item-info + .fw-bold, and the
+   .list-group-item rule above would otherwise flatten the highlight back to plain
+   surface, leaving only the bold text. Re-tint it from the theme accent instead of
+   Bootstrap's fixed pale cyan. */
+[data-bse-theme] .list-group-item.list-group-item-info,
+[data-bse-theme] .list-group-item.list-group-item-info:hover,
+[data-bse-theme] .list-group-item.list-group-item-info:focus {
+  background-color: rgba(var(--bse-accent-rgb), 0.3) !important;
+  border-color: var(--bse-accent) !important;
+  color: var(--bse-text) !important;
+  box-shadow: inset 3px 0 0 0 var(--bse-accent-h);
+}
+[data-bse-theme] .list-group-item.list-group-item-info:hover {
+  background-color: rgba(var(--bse-accent-rgb), 0.42) !important;
+}
+
 [data-bse-theme] .table-primary,
 [data-bse-theme] thead.table-primary {
   --bs-table-bg: var(--bse-accent) !important;

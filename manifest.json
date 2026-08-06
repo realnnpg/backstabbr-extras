@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Backstabbr Extras",
-  "version": "2.0",
+  "version": "2.1",
   "description": "Adds game stats, illegal-order warnings, per-country history filtering, private notes, order auto-save and colour themes to backstabbr.com.",
   "permissions": ["storage"],
   "icons": {
@@ -60,7 +60,9 @@
     {
       "matches": [
         "*://www.backstabbr.com/game/*",
-        "*://backstabbr.com/game/*"
+        "*://backstabbr.com/game/*",
+        "*://www.backstabbr.com/sandbox/*",
+        "*://backstabbr.com/sandbox/*"
       ],
       "js": ["board-bus.js", "history.js"],
       "run_at": "document_start",
@@ -92,8 +94,19 @@
         "*://www.backstabbr.com/game/*",
         "*://backstabbr.com/game/*"
       ],
-      "js": ["press.js", "autosave.js", "stats.js"],
-      "css": ["press.css", "stats.css"],
+      "js": ["press.js", "autosave.js"],
+      "css": ["press.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://www.backstabbr.com/game/*",
+        "*://backstabbr.com/game/*",
+        "*://www.backstabbr.com/sandbox/*",
+        "*://backstabbr.com/sandbox/*"
+      ],
+      "js": ["stats.js"],
+      "css": ["stats.css"],
       "run_at": "document_idle"
     }
   ]

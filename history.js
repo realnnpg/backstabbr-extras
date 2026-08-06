@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  if (!/^\/game\/[^/]+\/[^/]+\/\d{3,4}\/[A-Za-z]+/.test(location.pathname)) return;
+  if (!/^\/(?:game|sandbox)\/[^/]+\/[^/]+\/\d{3,4}\/[A-Za-z]+/.test(location.pathname)) return;
   if (window.__bseHistoryFilter) return;
   window.__bseHistoryFilter = true;
 

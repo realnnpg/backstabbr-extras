@@ -21,9 +21,9 @@ games that adjudicate as soon as everyone has submitted, where you can't safely 
 experimental orders sitting on the board. Drafts are kept in your browser only, one
 per turn, and nothing is sent to Backstabbr until you press Update Orders yourself.
 
-**Filter history by country** — when looking at a past turn of a game, click a country
-in the map legend to show only that country's orders. Click several to compare a few
-at a time; with nothing selected every country is shown as usual.
+**Filter history by country** — when looking at a past turn of a game or a sandbox,
+click a country in the map legend to show only that country's orders. Click several to
+compare a few at a time; with nothing selected every country is shown as usual.
 
 **Press notes & pins** — in a game's Press tab: a private notepad for the whole game,
 pin important chats to the top, and private notes on each individual chat.
@@ -33,14 +33,16 @@ a move, so your orders are always saved. Only saves the draft, never marks you r
 Off by default.
 
 **Game stats & export** — adds a Stats tab with a supply-centre graph over the whole
-game (hover for the numbers), a score table by year, and current standings. Export the
-whole game as HTML or PDF, including every order of every turn and who played what.
+game (hover for the numbers), a score table by year, and current standings. The graph
+scales to the highest supply-centre count actually reached, so a game where nobody gets
+past 8 doesn't get plotted against an empty 18. Export the whole game as HTML or PDF,
+including every order of every turn and who played what. Works on sandboxes too.
 
 **Themes** — recolour the whole site: Midnight, Crimson, Forest, Royal, Slate, Ember,
 or the normal Backstabbr look. Plus a troll theme that makes everything go a bit crazy.
 
-**Tab icons** — puts a small icon on each game tab (Results, Orders, Press, Info,
-Sandboxes, Stats). Off by default.
+**Tab icons** — puts a small icon on each game or sandbox tab (Results, Orders, Press,
+Info, Sandboxes, Stats). Off by default.
 
 Everything is stored locally in your browser. Nothing is sent anywhere.
 
