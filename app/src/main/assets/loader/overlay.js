@@ -20,12 +20,12 @@
   var ITEMS = [
     ["profileStats", "Profile stats", "Per-country W/D/L, rates & highlights on member pages."],
     ["boardWarnings", "Illegal-move warnings", "Flags illegal orders on the game / sandbox board."],
-    ["historyFilter", "Filter history by country", "On a past turn, tap countries in the map legend to show only their orders."],
+    ["historyFilter", "Filter history by country", "On a past turn of a game or sandbox, tap countries in the map legend to show only their orders."],
     ["orderDrafts", "Order drafts", "Save the orders on the board, try something else, then load them back. Stored on this device only."],
     ["pressNotes", "Press notes & pins", "Personal notes, pinned chats & per-chat notes in press."],
     ["autoSave", "Auto-save orders", "Auto-clicks “Update Orders” after a change. Saves the draft only — never marks you ready."],
-    ["gameStats", "Game stats & export", "Adds a Stats tab: SC graph, score table, export (JSON/report) & import to sandbox."],
-    ["tabIcons", "Tab icons", "Shows an icon on each game tab: Orders, Press, Info, Sandboxes, Stats."]
+    ["gameStats", "Game stats & export", "Adds a Stats tab to games and sandboxes: SC graph, score table, HTML/PDF export."],
+    ["tabIcons", "Tab icons", "Shows an icon on each game / sandbox tab: Orders, Press, Info, Sandboxes, Stats."]
   ];
 
   var FALLBACK = {

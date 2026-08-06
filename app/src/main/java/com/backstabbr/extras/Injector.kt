@@ -84,6 +84,8 @@ object Injector {
             batch.add(cssInject(ctx, "board.css"))
             batch.add(js(ctx, "board-map.js"))
             batch.add(js(ctx, "board.js"))
+            batch.add(cssInject(ctx, "stats.css"))
+            batch.add(js(ctx, "stats.js"))
         }
 
         if (path.startsWith("/game/")) {
@@ -91,8 +93,6 @@ object Injector {
             batch.add(js(ctx, "press.js"))
             batch.add(js(ctx, "autosave.js"))
             batch.add(js(ctx, "drafts.js"))
-            batch.add(cssInject(ctx, "stats.css"))
-            batch.add(js(ctx, "stats.js"))
         }
 
         val probe =

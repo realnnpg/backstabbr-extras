@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var base = null, gameName = "game", gameId = null;
+  var base = null, gameName = "game", gameId = null, isSandbox = false;
   var enabled = true, iconsOn = false, injected = false, loaded = false, loading = false;
   var HISTORY = null;
 
@@ -85,7 +85,7 @@
     var cp = curPhase(), cy = cp.year, cs = cp.season;
     var startYear = 1901;
     var curKey = cy + "/" + cs;
-    CACHE_KEY = "bse_stats_" + (gameId || base);
+    CACHE_KEY = "bse_stats_" + (isSandbox ? "sb_" : "") + (gameId || base);
 
     var jobs = [];
     for (var y = startYear; y <= cy; y++) {
@@ -136,11 +136,29 @@
     return HISTORY;
   }
 
+  function peakSC(hist) {
+    var top = 0;
+    (hist.years || []).forEach(function (y) {
+      var sc = hist.scByYear[y] || {};
+      POWERS.forEach(function (p) { top = Math.max(top, sc[p] || 0); });
+    });
+    return top;
+  }
+
+  function chartMax(hist) {
+    var top = peakSC(hist);
+    var m = Math.ceil((top + 1) / 2) * 2;
+    if (m < 6) m = 6;
+    if (top <= 18 && m > 18) m = 18;
+    return m;
+  }
+
+  function gridStep(maxSC) { return maxSC > 20 ? 4 : 2; }
+
   function buildChart(hist) {
     var W = 640, H = 340, pad = { l: 34, r: 12, t: 12, b: 26 };
     var years = hist.years;
-    var maxSC = 18;
-    hist.years.forEach(function (y) { POWERS.forEach(function (p) { maxSC = Math.max(maxSC, hist.scByYear[y] ? hist.scByYear[y][p] : 0); }); });
+    var maxSC = chartMax(hist);
     var x = function (i) { return pad.l + (years.length <= 1 ? 0 : i * (W - pad.l - pad.r) / (years.length - 1)); };
     var yv = function (v) { return H - pad.b - v * (H - pad.t - pad.b) / maxSC; };
     var NS = "http://www.w3.org/2000/svg";
@@ -150,7 +168,8 @@
     function line(x1, y1, x2, y2, cls) { var l = document.createElementNS(NS, "line"); l.setAttribute("x1", x1); l.setAttribute("y1", y1); l.setAttribute("x2", x2); l.setAttribute("y2", y2); l.setAttribute("class", cls); svg.appendChild(l); }
     function txt(xx, yy, s, cls) { var t = document.createElementNS(NS, "text"); t.setAttribute("x", xx); t.setAttribute("y", yy); t.setAttribute("class", cls); t.textContent = s; svg.appendChild(t); }
 
-    for (var v = 0; v <= maxSC; v += 2) { line(pad.l, yv(v), W - pad.r, yv(v), "bse-st-grid"); txt(pad.l - 6, yv(v) + 3, String(v), "bse-st-axis bse-st-axis-y"); }
+    var step = gridStep(maxSC);
+    for (var v = 0; v <= maxSC; v += step) { line(pad.l, yv(v), W - pad.r, yv(v), "bse-st-grid"); txt(pad.l - 6, yv(v) + 3, String(v), "bse-st-axis bse-st-axis-y"); }
 
     years.forEach(function (y, i) { txt(x(i), H - pad.b + 15, String(y), "bse-st-axis bse-st-axis-x"); });
 
@@ -453,11 +472,10 @@
 
     d.text("Supply centres over time", L, 12, { bold: true }); d.y += 16;
     var cx = L, cy = d.y, cw = RIGHT - L, ch = 210;
-    var years = hist.years, maxSC = 18;
-    years.forEach(function (y) { POWERS.forEach(function (p) { maxSC = Math.max(maxSC, (hist.scByYear[y] || {})[p] || 0); }); });
+    var years = hist.years, maxSC = chartMax(hist);
     var px = function (i) { return cx + 26 + (years.length <= 1 ? 0 : i * (cw - 34) / (years.length - 1)); };
     var py = function (v) { return cy + ch - 16 - v * (ch - 26) / maxSC; };
-    for (var v = 0; v <= maxSC; v += 2) {
+    for (var v = 0; v <= maxSC; v += gridStep(maxSC)) {
       d.line(cx + 26, py(v), cx + cw, py(v), "#e0e0e0", 0.5);
       d.text(String(v), cx + 26 - textWidth(String(v), 7) - 4, 7, { y: py(v) + 3.5, color: "#666666" });
     }
@@ -642,10 +660,11 @@
     applyTabIcons(iconsOn);
   }
 
-  base = window.base_url || (location.pathname.match(/^(\/game\/[^/]+\/\d+)/) || [])[1];
+  base = window.base_url || (location.pathname.match(/^(\/(?:game|sandbox)\/[^/]+\/\d+)/) || [])[1];
   if (!base) return;
+  isSandbox = /^\/sandbox\//.test(base);
   gameId = (base.match(/\/(\d+)$/) || [])[1];
-  gameName = (document.title.replace(/^Game:\s*/, "").replace(/\s*\|.*$/, "") || "game").trim();
+  gameName = (document.title.replace(/^(?:Game|Sandbox):\s*/, "").replace(/\s*\|.*$/, "") || "game").trim();
 
   function tryInject() { if (document.getElementById("game-tabs")) { apply(); return true; } return false; }
   if (!tryInject()) {
