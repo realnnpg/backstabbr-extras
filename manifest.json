@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Backstabbr Extras",
-  "version": "2.1",
+  "version": "2.2",
   "description": "Adds game stats, illegal-order warnings, per-country history filtering, private notes, order auto-save and colour themes to backstabbr.com.",
   "permissions": ["storage"],
   "icons": {

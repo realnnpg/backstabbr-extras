@@ -85,7 +85,7 @@
   }
 
   function scan() {
-    var bad = [];
+    var bad = [], seen = {};
     var orders = window.orders || {};
     for (var pw in orders) {
       var po = orders[pw] || {};
@@ -98,7 +98,10 @@
         var isBad = o.type === "MOVE"
           ? badMove(prov, u.isFleet, u.coast, o.to, o.to_coast)
           : badSupport(prov, u.isFleet, u.coast, o.to || o.from);
-        if (isBad && bad.indexOf(prov) < 0) bad.push(prov);
+        if (isBad && !seen[prov]) {
+          seen[prov] = 1;
+          bad.push({ prov: prov, player: pw });
+        }
       }
     }
     return bad;
@@ -109,8 +112,8 @@
     for (var i = 0; i < prev.length; i++) prev[i].remove();
   }
 
-  function highlight(prov) {
-    var terr = document.getElementById("ter_" + prov);
+  function highlight(item) {
+    var terr = document.getElementById("ter_" + item.prov);
     if (!terr || !terr.getAttribute("d")) return;
     var svg = terr.ownerSVGElement;
     if (!svg) return;
@@ -119,6 +122,10 @@
     var tf = terr.getAttribute("transform");
     if (tf) o.setAttribute("transform", tf);
     o.setAttribute("class", "bse-bad-overlay");
+    if (item.player) {
+      o.setAttribute("data-bse-oc", item.player);
+      o.setAttribute("data-bse-ot", item.prov);
+    }
     svg.appendChild(o);
   }
 
