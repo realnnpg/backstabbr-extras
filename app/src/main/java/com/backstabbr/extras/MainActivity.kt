@@ -3,6 +3,8 @@ package com.backstabbr.extras
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.verify.domain.DomainVerificationManager
+import android.content.pm.verify.domain.DomainVerificationUserState
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
@@ -11,6 +13,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Message
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Base64
 import android.view.ViewGroup
 import android.webkit.CookieManager
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val START_URL = "https://www.backstabbr.com/"
+        private const val BACKSTABBR = "backstabbr.com"
 
         private val IN_APP_SUFFIXES = listOf(
             "backstabbr.com",
@@ -72,6 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         web.addJavascriptInterface(StatusBarBridge(), "BSEAndroidBar")
         web.addJavascriptInterface(DownloadBridge(), "BSEAndroidDownload")
+        web.addJavascriptInterface(LinksBridge(), "BSEAndroidLinks")
 
         Injector.registerDocumentStart(web)
 
@@ -111,8 +116,39 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        if (savedInstanceState == null) web.loadUrl(START_URL)
-        else web.restoreState(savedInstanceState)
+        val link = takeLink(intent)
+        when {
+            link != null -> web.loadUrl(link)
+            savedInstanceState != null -> web.restoreState(savedInstanceState)
+            else -> web.loadUrl(START_URL)
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val link = takeLink(intent) ?: return
+        while (popups.isNotEmpty()) closePopup(popups.last())
+        web.loadUrl(link)
+    }
+
+    private fun takeLink(intent: Intent?): String? {
+        val url = urlFromIntent(intent) ?: return null
+        intent?.action = Intent.ACTION_MAIN
+        intent?.data = null
+        return url
+    }
+
+    private fun urlFromIntent(intent: Intent?): String? {
+        if (intent?.action != Intent.ACTION_VIEW) return null
+        val uri = intent.data ?: return null
+        val host = uri.host?.lowercase() ?: return null
+        if (host != BACKSTABBR && !host.endsWith(".$BACKSTABBR")) return null
+        return if (uri.scheme.equals("http", ignoreCase = true)) {
+            uri.buildUpon().scheme("https").build().toString()
+        } else {
+            uri.toString()
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -235,6 +271,49 @@ class MainActivity : AppCompatActivity() {
                         .isAppearanceLightStatusBars = light
                 } catch (e: Exception) {
                 }
+            }
+        }
+    }
+
+    inner class LinksBridge {
+        @JavascriptInterface
+        fun needsOptIn(): Boolean =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !linksApproved()
+
+        @JavascriptInterface
+        fun openSettings() {
+            runOnUiThread { openLinkSettings() }
+        }
+    }
+
+    private fun linksApproved(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return true
+        return try {
+            val dvm = getSystemService(DomainVerificationManager::class.java) ?: return false
+            val state = dvm.getDomainVerificationUserState(packageName) ?: return false
+            state.hostToStateMap.values.any {
+                it == DomainVerificationUserState.DOMAIN_STATE_SELECTED ||
+                    it == DomainVerificationUserState.DOMAIN_STATE_VERIFIED
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    private fun openLinkSettings() {
+        val pkg = Uri.parse("package:$packageName")
+        val primary = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Intent(Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS, pkg)
+        } else {
+            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, pkg)
+        }
+        try {
+            startActivity(primary)
+        } catch (e: Exception) {
+            try {
+                startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, pkg))
+            } catch (e2: Exception) {
+                Toast.makeText(this, "Open Settings > Apps > Backstabbr Extras > Open by default", Toast.LENGTH_LONG).show()
             }
         }
     }

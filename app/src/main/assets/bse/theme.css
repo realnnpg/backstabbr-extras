@@ -108,10 +108,6 @@
   color: var(--bse-text) !important;
 }
 
-/* Unread press thread. Backstabbr tags it .list-group-item-info + .fw-bold, and the
-   .list-group-item rule above would otherwise flatten the highlight back to plain
-   surface, leaving only the bold text. Re-tint it from the theme accent instead of
-   Bootstrap's fixed pale cyan. */
 [data-bse-theme] .list-group-item.list-group-item-info,
 [data-bse-theme] .list-group-item.list-group-item-info:hover,
 [data-bse-theme] .list-group-item.list-group-item-info:focus {

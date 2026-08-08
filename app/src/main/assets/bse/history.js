@@ -147,9 +147,26 @@
   }
 
   var tries = 0;
+  var svgWatch = null;
+  var queued = false;
+
+  function schedule() {
+    if (queued) return;
+    queued = true;
+    setTimeout(function () { queued = false; applyFilter(); }, 0);
+  }
+
+  function watchSvg() {
+    if (svgWatch) return;
+    var svg = mapSvg();
+    if (!svg) return;
+    svgWatch = new MutationObserver(schedule);
+    svgWatch.observe(svg, { childList: true });
+  }
 
   function tick() {
     if (buildLegend()) applyFilter();
+    watchSvg();
     var svg = mapSvg();
     var tagged = svg && svg.querySelector("[data-bse-oc]");
     if (tagged || tries++ > 40) return;

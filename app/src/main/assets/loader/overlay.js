@@ -73,7 +73,11 @@
     ".sl::before{content:'';position:absolute;height:18px;width:18px;left:2px;top:2px;background:#fff;",
     "border-radius:50%;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.3);}",
     ".sw input:checked + .sl{background:#2e8b57;}",
-    ".sw input:checked + .sl::before{transform:translateX(18px);}"
+    ".sw input:checked + .sl::before{transform:translateX(18px);}",
+    ".act{padding:12px 14px;border-bottom:1px solid var(--o-border);}",
+    ".act .btn{margin-top:8px;padding:7px 12px;font-size:12.5px;font-weight:600;border:none;",
+    "border-radius:6px;background:var(--o-accent);color:#fff;cursor:pointer;}",
+    ".act .btn:active{transform:scale(.97);}"
   ].join("");
   root.appendChild(style);
 
@@ -131,6 +135,29 @@
       try { chrome.storage.sync.set(patch); } catch (e) {}
     });
   });
+
+  (function () {
+    var api = null;
+    try { api = window.BSEAndroidLinks || null; } catch (e) {}
+    if (!api || typeof api.needsOptIn !== "function") return;
+    var needed = false;
+    try { needed = !!api.needsOptIn(); } catch (e) { return; }
+    if (!needed) return;
+
+    var box = document.createElement("div"); box.className = "act";
+    var nm = document.createElement("div"); nm.className = "name";
+    nm.textContent = "Open Backstabbr links in the app";
+    var ds = document.createElement("div"); ds.className = "desc";
+    ds.textContent = "Android needs this allowed once. Turn on “Open supported links”, then " +
+      "add backstabbr.com under “Supported web addresses”.";
+    var go = document.createElement("button");
+    go.className = "btn"; go.type = "button"; go.textContent = "Open settings";
+    go.addEventListener("click", function () {
+      try { api.openSettings(); } catch (e) {}
+    });
+    box.appendChild(nm); box.appendChild(ds); box.appendChild(go);
+    panel.appendChild(box);
+  })();
 
   function readVar(name) {
     try { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
